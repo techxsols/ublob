@@ -61,3 +61,5 @@ func (i *Indexer) FetchLogs() ([]ethtypes.Log, error) {
 	}
 	return logs, nil
 }
+
+
