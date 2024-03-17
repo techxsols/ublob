@@ -22,7 +22,7 @@ type RelayDB interface {
 	UpdateUBlobs(ublobs *types.UBlob) error
 	DeleteUBlobs(ublobs *types.UBlob) error
 	CreateBlobReceipts(blobReceipt *types.BlobReceipt) (*types.BlobReceipt, error)
-	GetBlobReceiptsByBlobHash(blobHash []byte) (*types.BlobReceipt, error)
+	GetBlobReceiptsByBlobHash(blobHash common.Hash) (*types.BlobReceipt, error)
 	GetUBlobReceiptByBlobID(blobID uint) (*types.UBlobReceipt, error)
 	GetUBlobsBy(blobID uint) (*types.UBlob, error)
 	GetUBlobsBySender(sender common.Address) ([]*types.UBlob, error)
@@ -30,7 +30,7 @@ type RelayDB interface {
 	GetPendingTransaction(nonce uint) (*types.PendingTransaction, error)
 	UpsertPendingTransaction(tx *types.PendingTransaction) error
 	SetUBlobReceipt(blobID uint, receipt *types.UBlobReceipt) error
-	GetUBlobsByBlobID(blobHash []byte) (*types.BlobReceipt, error)
+	GetUBlobsByBlobID(blobHash common.Hash) (*types.BlobReceipt, error)
 	GetBlobs() ([]*types.BlobReceipt, error)
 }
 
@@ -103,7 +103,7 @@ func (r *Relay) GetUBlobRequest(c *gin.Context) {
 func (r *Relay) GetUblobsByID(c *gin.Context) {
 	hash := c.Param("blobHash")
 	hashh := common.HexToHash(hash)
-	ublob, err := r.DB.GetUBlobsByBlobID(hashh[:])
+	ublob, err := r.DB.GetUBlobsByBlobID(hashh)
 	if err != nil {
 		c.JSON(500, gin.H{"error": err.Error()})
 		return

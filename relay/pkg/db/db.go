@@ -35,7 +35,7 @@ func (r *DB) CreateBlobReceipts(blobReceipt *types.BlobReceipt) (*types.BlobRece
 	return blobReceipt, err
 }
 
-func (r *DB) GetBlobReceiptsByBlobHash(blobHash []byte) (*types.BlobReceipt, error) {
+func (r *DB) GetBlobReceiptsByBlobHash(blobHash common.Hash) (*types.BlobReceipt, error) {
 	blobReceipt := new(types.BlobReceipt)
 	err := r.db.Where(types.BlobReceipt{
 		BlobHash: blobHash,
@@ -102,7 +102,7 @@ func (r *DB) SetUBlobReceipt(ublobID uint, receipt *types.UBlobReceipt) error {
 	return r.db.Model(&types.UBlob{}).Where("id = ?", ublobID).Update("u_blob_receipt_id", receipt.ID).Error
 }
 
-func (r *DB) GetUBlobsByBlobID(blobHash []byte) (*types.BlobReceipt, error) {
+func (r *DB) GetUBlobsByBlobID(blobHash common.Hash) (*types.BlobReceipt, error) {
 	receipt := new(types.BlobReceipt)
 	err := r.db.Where(types.BlobReceipt{
 		BlobHash: blobHash,
