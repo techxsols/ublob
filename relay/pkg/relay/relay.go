@@ -3,6 +3,7 @@ package relay
 import (
 	"fmt"
 	"math/big"
+	"time"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
@@ -77,7 +78,7 @@ func (r *Relay) CreateUBlobRequest(c *gin.Context) {
 		MaxWeiPerByte:       maxWeiPerByte,
 		AgeFactor:           req.AgeFactor,
 		ExpirationTimestamp: req.ExpirationTimestamp,
-		CreationTimestamp:   header.Time,
+		CreationTimestamp:   uint64(time.Now().Unix()),
 		CreationBlockNumber: header.Number.Uint64(),
 	}
 

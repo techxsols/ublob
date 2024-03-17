@@ -113,6 +113,6 @@ func (r *DB) GetUBlobsByBlobID(blobHash common.Hash) (*types.BlobReceipt, error)
 
 func (r *DB) GetBlobs() ([]*types.BlobReceipt, error) {
 	var blobReceipts []*types.BlobReceipt
-	err := r.db.Find(&blobReceipts).Error
+	err := r.db.Preload("UBlobReceipts").Find(&blobReceipts).Error
 	return blobReceipts, err
 }

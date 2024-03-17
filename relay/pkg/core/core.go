@@ -159,6 +159,7 @@ func (e *UBlobEngine) startCoreLoop(ctx context.Context, cancel context.CancelFu
 								BlobHash:     pending.blobHash,
 								BlobGasPrice: receipt.BlobGasPrice.String(),
 								Size:         pending.Size,
+								Timestamp:    uint64(pending.tx.Time().Unix()),
 							})
 							if err != nil {
 								log.Warnf("error creating blob receipt: %v", err)

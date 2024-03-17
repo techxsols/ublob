@@ -36,6 +36,7 @@ type BlobReceipt struct {
 	BlobHash     common.Hash
 	BlobGasPrice string
 	Size         uint64
+	Timestamp    uint64
 
 	UBlobReceipts []*UBlobReceipt `gorm:"foreignKey:BlobReceiptID"`
 }
